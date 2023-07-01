@@ -1,11 +1,11 @@
 {
-    "compilerOptions": {
-        "target": "ES6",
-        "outDir": "/dist",
-        "esModuleInterop": true,
-        "module": "CommonJS",
-        "noImplicitAny": false,
-        "strict": true,
-        "strictNullChecks": true
-    }
+	"compilerOptions": {
+		"target": "ES6",
+		"outDir": "/dist",
+		"esModuleInterop": true,
+		"module": "CommonJS",
+		"noImplicitAny": false,
+		"strict": true,
+		"strictNullChecks": true
+	}
 }
