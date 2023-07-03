@@ -14,8 +14,14 @@
 		"@typescript-eslint/strict-boolean-expressions": "off",
 		"@typescript-eslint/consistent-type-imports": "off",
 		"@typescript-eslint/consistent-type-definitions": "off",
-		"@typescript-eslint/indent": ["error", 4, "tab"],
+		"@typescript-eslint/member-delimiter-style": "off",
+		"@typescript-eslint/semi": "off",
+		"@typescript-eslint/indent": ["error", "tab"],
+		"@typescript-eslint/quotes": ["error", "double"],
+		"@typescript-eslint/comma-dangle": "off",
+		"@typescript-eslint/space-before-function-paren": "off",
+		// "@typescript-eslint/brace-style": "off",
 		"no-tabs": "off",
-		"semi": "error"
+		"semi": "off"
 	}
 }

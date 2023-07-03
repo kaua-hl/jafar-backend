@@ -1,5 +1,3 @@
 {
-    "*.{ts, js}": [
-        "npm run lint:fix"
-    ]
+	"*.{ts, js}": ["npm run lint:fix"]
 }
