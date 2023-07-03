@@ -20,6 +20,7 @@
 		"@typescript-eslint/quotes": ["error", "double"],
 		"@typescript-eslint/comma-dangle": "off",
 		"@typescript-eslint/space-before-function-paren": "off",
+		"@typescript-eslint/no-floating-promises": "off",
 		// "@typescript-eslint/brace-style": "off",
 		"no-tabs": "off",
 		"semi": "off"
