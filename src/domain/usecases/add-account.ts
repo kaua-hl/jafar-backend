@@ -1,5 +1,14 @@
-import { PrimaryUserRegistration } from "../entities/primary-user-registration";
-
 export interface AddAccount {
-	add: (data: PrimaryUserRegistration) => Promise<any>;
+	add: (account: AddAccount.Params) => Promise<AddAccount.Result>;
+}
+
+export namespace AddAccount {
+	export type Params = {
+		name: string;
+		lastname: string;
+		cpf: string;
+		email: string;
+		password: string;
+	};
+	export type Result = boolean;
 }
