@@ -1,25 +1,39 @@
 import { InMemoryDatabase } from "../../../test/utils/in-memory-database";
-import { PrimaryUserRegistration } from "../../domain/entities/primary-user-registration";
+import { Hasher } from "../services/hasher";
 import { AddUserAccount } from "./add-user-account";
 
 type SutTypes = {
 	sut: AddUserAccount;
 	inMemoryDatabase: InMemoryDatabase;
+	hasherSpy: HasherSpy;
 };
 
 const makeSut = (): SutTypes => {
-	const findAccountByEmailRepository = new InMemoryDatabase();
+	const checkAccountRepository = new InMemoryDatabase();
 	const addUserAccountRepository = new InMemoryDatabase();
 	const inMemoryDatabase = new InMemoryDatabase();
-	const sut = new AddUserAccount(findAccountByEmailRepository, addUserAccountRepository);
+	const hasherSpy = new HasherSpy();
+	const sut = new AddUserAccount(checkAccountRepository, addUserAccountRepository, hasherSpy);
 
 	return {
 		sut,
 		inMemoryDatabase,
+		hasherSpy,
 	};
 };
 
-const fakeUserData: PrimaryUserRegistration = {
+class HasherSpy implements Hasher {
+	hashed: string;
+	plaintext: string;
+
+	async hash(plaintext: string): Promise<string> {
+		this.plaintext = plaintext;
+		this.hashed = "hashed_password";
+		return this.hashed;
+	}
+}
+
+const fakeUserData: any = {
 	name: "Maicon",
 	lastname: "Silva Nascimento",
 	cpf: "121.345.456-45",
@@ -28,16 +42,16 @@ const fakeUserData: PrimaryUserRegistration = {
 };
 
 describe("AddUserAccount", () => {
-	it("Should return an account on success", async () => {
+	it("Should return false if account already exists", async () => {
 		const { sut } = makeSut();
+		await sut.add(fakeUserData);
 		const account = await sut.add(fakeUserData);
-		expect(account).toBe(fakeUserData);
+		expect(account).toBe(false);
 	});
 
-	it("Should return false if account exists", async () => {
+	it("Should return true if account insert into database", async () => {
 		const { sut } = makeSut();
 		const account = await sut.add(fakeUserData);
-		const accountExisting = await sut.add(account);
-		expect(accountExisting).toBe(false);
+		expect(account).toBe(true);
 	});
 });
