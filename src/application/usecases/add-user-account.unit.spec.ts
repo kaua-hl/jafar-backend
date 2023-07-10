@@ -49,9 +49,16 @@ describe("AddUserAccount", () => {
 		expect(account).toBe(false);
 	});
 
-	it("Should return true if account insert into database", async () => {
+	it("Should return true if account inserted", async () => {
 		const { sut } = makeSut();
 		const account = await sut.add(fakeUserData);
 		expect(account).toBe(true);
+	});
+
+	it("Should transform a plaintext password to hashed password", async () => {
+		const { sut, hasherSpy } = makeSut();
+		await sut.add(fakeUserData);
+		expect(hasherSpy.plaintext).toBe(fakeUserData.password);
+		expect(hasherSpy.hashed).toBe("hashed_password");
 	});
 });
