@@ -26,16 +26,37 @@ const makeSut = (): SutTypes => {
 };
 
 describe("UserAuthentication", () => {
-	it("Should return an token with success if valid params is provided", async () => {
+	it("Should return a accessToken with success if LoadAccountByEmailRepository returns true", async () => {
 		const { sut, encrypterSpy } = makeSut();
 		const auth = await sut.auth(fakeUserAuthParams());
 		expect(auth.accessToken).toBe(encrypterSpy.accessToken);
 	});
 
-	it("Should return null if auth fail", async () => {
+	it("Should return null if LoadAccountByEmailRepository returns null", async () => {
 		const { sut, loadAccountByEmailRepositorySpy } = makeSut();
 		loadAccountByEmailRepositorySpy.result = null;
 		const auth = await sut.auth(fakeUserAuthParams());
 		expect(auth).toBeNull();
+	});
+
+	it("Should return null if hashComparer returns false", async () => {
+		const { sut, hashComparer } = makeSut();
+		hashComparer.result = false;
+		const auth = await sut.auth(fakeUserAuthParams());
+		expect(auth).toBeNull();
+	});
+
+	it("Should return a accessToken if hashComparer returns true", async () => {
+		const { sut, encrypterSpy } = makeSut();
+		const auth = await sut.auth(fakeUserAuthParams());
+		expect(auth.accessToken).toEqual(encrypterSpy.accessToken);
+	});
+
+	it("Should encrypt correctly param and return an token", async () => {
+		const { sut, encrypterSpy, loadAccountByEmailRepositorySpy } = makeSut();
+		const fakeUserAuthParam = fakeUserAuthParams();
+		const auth = await sut.auth(fakeUserAuthParam);
+		expect(encrypterSpy.id).toBe(loadAccountByEmailRepositorySpy.result.id);
+		expect(auth.accessToken).toEqual(encrypterSpy.accessToken);
 	});
 });
