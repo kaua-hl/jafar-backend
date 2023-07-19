@@ -1,6 +1,6 @@
 import { Authentication } from "../../domain/usecases/authentication";
 import { Encrypter } from "../services/encrypter";
-import { LoadAccountByEmailRepository } from "../services/find-account-by-email-repository";
+import { LoadAccountByEmailRepository } from "../services/load-account-by-email-repository";
 import { HashComparer } from "../services/hash-comparer";
 
 export class UserAuthentication implements Authentication {
