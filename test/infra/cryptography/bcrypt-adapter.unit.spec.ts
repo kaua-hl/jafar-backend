@@ -1,4 +1,4 @@
-import { BcryptAdapter } from "./bcrypt-adapter";
+import { BcryptAdapter } from "../../../src/infra/cryptography/bcrypt-adapter";
 
 type SutTypes = {
 	sut: BcryptAdapter;
