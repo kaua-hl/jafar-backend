@@ -1,6 +1,6 @@
-import { fakeUserParams } from "../../../../test/utils/fake-user-params";
-import { MongoHelper } from "../helpers/mongo-helper";
-import { UserRepository } from "./mongodb-user-repository";
+import { fakeUserParams } from "../../utils/fake-user-params";
+import { MongoHelper } from "../../../src/infra/mongodb/helpers/mongo-helper";
+import { UserRepository } from "../../../src/infra/mongodb/repositories/mongodb-user-repository";
 
 import dotenv from "dotenv";
 dotenv.config();
