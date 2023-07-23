@@ -1,24 +1,24 @@
-import { fakeUserParams } from "../../../test/utils/fake-user-params";
-import { InvalidParamError } from "../errors/invalid-param-error";
-import { EmailValidation } from "./email-validation";
+import { InvalidParamError } from "../../../src/presentation/errors/invalid-param-error";
+import { PasswordValidation } from "../../../src/presentation/validations/password-validation";
+import { fakeUserParams } from "../../utils/fake-user-params";
 
 interface SutTypes {
-	sut: EmailValidation;
+	sut: PasswordValidation;
 }
 
 const makeSut = (): SutTypes => {
-	const sut = new EmailValidation("email");
+	const sut = new PasswordValidation("password");
 
 	return {
 		sut,
 	};
 };
 
-describe("EmailValidation", () => {
+describe("PasswordValidation", () => {
 	it("Should return a new InvalidParamError if validator fails", () => {
 		const { sut } = makeSut();
 		const validation = sut.validate(fakeUserParams().name);
-		expect(validation).toEqual(new InvalidParamError("email"));
+		expect(validation).toEqual(new InvalidParamError("password"));
 	});
 
 	it("Should return undefined if validation on success", () => {
